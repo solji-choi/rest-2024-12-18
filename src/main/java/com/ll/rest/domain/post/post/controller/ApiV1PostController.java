@@ -57,7 +57,7 @@ public class ApiV1PostController {
     @Transactional
     public RsData modifyItem(
             @PathVariable long id,
-            @RequestBody @Valid  PostModifyReqBody reqBody
+            @RequestBody @Valid PostModifyReqBody reqBody
     ) {
         Post post = postService.findById(id).get();
 
@@ -70,9 +70,8 @@ public class ApiV1PostController {
     }
 
     @PostMapping
-    @Transactional
     public RsData writeItem(
-            @RequestBody @Valid  PostModifyReqBody reqBody
+            @RequestBody @Valid PostModifyReqBody reqBody
     ) {
         Post post = postService.write(reqBody.title, reqBody.content);
 
