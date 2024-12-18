@@ -19,18 +19,12 @@ public class BaseInitData {
     public ApplicationRunner baseInitData1ApplicationRunner() {
         return args -> {
             self.work1();
-            self.work2();
         };
     }
 
     @Transactional
     public void work1() {
-    }
-
-    @Transactional
-    public void work2() {
-
-
+        
     }
 }
 
