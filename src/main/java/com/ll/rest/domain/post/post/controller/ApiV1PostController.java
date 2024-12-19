@@ -62,7 +62,7 @@ public class ApiV1PostController {
 
     @PutMapping("/{id}")
     @Transactional
-    public RsData modifyItem(
+    public RsData<PostDto> modifyItem(
             @PathVariable long id,
             @RequestBody @Valid PostModifyReqBody reqBody
     ) {
@@ -70,7 +70,7 @@ public class ApiV1PostController {
 
         postService.modify(post, reqBody.title(), reqBody.content());
 
-        return new RsData(
+        return new RsData<>(
                 "200-1",
                 "%d번 글이 수정되었습니다.".formatted(id),
                 new PostDto(post)
@@ -78,12 +78,12 @@ public class ApiV1PostController {
     }
 
     @PostMapping
-    public RsData writeItem(
+    public RsData<Long> writeItem(
             @RequestBody @Valid PostModifyReqBody reqBody
     ) {
         Post post = postService.write(reqBody.title, reqBody.content);
 
-        return new RsData(
+        return new RsData<>(
                 "200-1",
                 "%d번 글이 작성되었습니다.".formatted(post.getId()),
                 post.getId()
