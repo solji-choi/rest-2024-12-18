@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -61,6 +60,11 @@ public class ApiV1PostController {
         String content
     ){}
 
+    record PostWriteResBody (
+            PostDto postDto,
+            long totalCount
+    ){}
+
     @PutMapping("/{id}")
     @Transactional
     public RsData<PostDto> modifyItem(
@@ -79,7 +83,7 @@ public class ApiV1PostController {
     }
 
     @PostMapping
-    public RsData<Map<String, Object>> writeItem(
+    public RsData<PostWriteResBody> writeItem(
             @RequestBody @Valid PostModifyReqBody reqBody
     ) {
         Post post = postService.write(reqBody.title, reqBody.content);
@@ -87,9 +91,9 @@ public class ApiV1PostController {
         return new RsData<>(
                 "200-1",
                 "%d번 글이 작성되었습니다.".formatted(post.getId()),
-                Map.of(
-                        "item", new PostDto(post),
-                        "totalCount", postService.count()
+                new PostWriteResBody(
+                        new PostDto(post),
+                        postService.count()
                 )
         );
     }
