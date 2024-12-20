@@ -13,15 +13,11 @@ public class MemberDto {
     private LocalDateTime createDate;
     @JsonProperty("modifiedDatetime")
     private LocalDateTime modifyDate;
-    private String username;
-    private String password;
     private String nickname;
     public MemberDto(Member member) {
         this.id = member.getId();
         this.createDate = member.getCreatedAt();
         this.modifyDate = member.getModifiedAt();
-        this.username = member.getUsername();
-        this.password = member.getPassword();
         this.nickname = member.getNickname();
     }
 }
